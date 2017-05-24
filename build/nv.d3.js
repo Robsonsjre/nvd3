@@ -9588,7 +9588,7 @@ nv.models.multiChart = function() {
         stack1 = nv.models.stackedArea().yScale(yScale1),
         stack2 = nv.models.stackedArea().yScale(yScale2),
 
-        xAxis = nv.models.axis().orient('bottom').tickPadding(5),
+        xAxis = nv.models.axis().scale(x).orient('bottom').tickPadding(7),
         yAxis1 = nv.models.axis().scale(yScale1).orient('left'),
         yAxis2 = nv.models.axis().scale(yScale2).orient('right'),
 
@@ -9641,7 +9641,6 @@ nv.models.multiChart = function() {
                     })
                 });
 
-            x = lines1.xScale()
             x   .domain(d3.extent(d3.merge(series1.concat(series2)), function(d) { return d.x }))
                 .range([0, availableWidth]);
 
@@ -9787,7 +9786,6 @@ nv.models.multiChart = function() {
             if(dataScatters2.length){d3.transition(scatters2Wrap).call(scatters2);}
 
             xAxis
-                .scale(x)
                 ._ticks( nv.utils.calcTicksX(availableWidth/100, data) )
                 .tickSize(-availableHeight, 0);
 
@@ -10065,6 +10063,7 @@ nv.models.multiChart = function() {
         width:      {get: function(){return width;}, set: function(_){width=_;}},
         height:     {get: function(){return height;}, set: function(_){height=_;}},
         showLegend: {get: function(){return showLegend;}, set: function(_){showLegend=_;}},
+        xScale: {get: function(){return x;}, set: function(_){ x = _; xAxis.scale(x); }},
         yDomain1:      {get: function(){return yDomain1;}, set: function(_){yDomain1=_;}},
         yDomain2:    {get: function(){return yDomain2;}, set: function(_){yDomain2=_;}},
         noData:    {get: function(){return noData;}, set: function(_){noData=_;}},
